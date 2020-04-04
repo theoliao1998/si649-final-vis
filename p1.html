@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<head>
+    
+    <!-- <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Allura|Raleway"/>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="./styles/main.css"/>
+    
+
+    <link rel="alternate" type="application/atom+xml" title="Blog" href="/atom.xml" /> -->
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./styles/d3.slider.css" />
+<style>
+body{
+    overflow: auto;
+    -ms-overflow-style: none; /* IE 11 */
+    scrollbar-width: none; /* Firefox 64 */
+}
+
+@-moz-document url-prefix() {
+    html,body{overflow: hidden !important;}
+}
+
+.background {
+  fill: none;
+  pointer-events: all; 
+}
+
+svg{
+  background: white;
+}
+
+.country{
+  fill: #cccccc;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  cursor: pointer;
+  stroke-width: .3;
+}
+
+.selected{
+  fill: orange;
+}
+
+.site {
+	opacity: 0.5;
+}
+
+#slider3{
+  width: 1000px;
+}
+
+#tooltip {
+  text-align: left;
+  padding: 16px;
+  background-color: lightsalmon;
+  border: 1px solid black;
+  width: auto;
+  opacity: 0;
+  color: black;
+  position: absolute;
+}
+#map{
+  position: absolute; 
+}
+
+#chart{
+  position: fixed;
+  width : 32%;
+  height: 36%;
+  right: 30%;
+  z-index: 150;
+  bottom: 0;
+  right: 0;
+}
+
+#vis{
+  /* position: absolute;  */
+      top: 100; 
+      left: 100; 
+      width: 100%; 
+      z-index: 50;
+}
+#container {
+      position: relative;
+      z-index: 100;
+      scrollbar-width: none;
+}
+
+.panel {
+  width: 100%;
+  padding-left: 20px;
+  padding-top: 25vh;
+  padding-bottom: 25vh;
+}
+.panel p {
+  padding-right: 50%;
+}
+.panel:first-child {
+  padding-top: 35vh;
+}
+.panel:last-child {
+  padding-bottom: 45vh;
+}
+
+::-webkit-scrollbar { display: none; }
+
+</style>
+</head>
+<div id='vis'>
+<div id='map'></div>
+<div id="tooltip">
+  Province/State: <span id="p_s" class="info"></span><br> 
+  Country/Region: <span id="c_r" class="info"></span><br>
+  Date: <span id="date" class="info"></span><br>  
+  Accumulated Confirmed: <span id="confirmed" class="info"></span><br>  
+  Accumulated Deaths: <span id="deaths" class="info"></span><br> 
+  Accumulated Recovered: <span id="recovered" class="info"></span><br> 
+</div>
+<div id="slider3">
+</div>
+<div id="chart"></div>
+</div>
+
+<div id="container" style="height: 100vh; overflow: scroll">
+  <div id="content">
+    <div class="panel">
+      <p>This is a block that illustrates some of the tricks I've learned while designing scroll narratives like <a href="www.r2d3.us/visual-intro-to-machine-learning-part-1/" target="_block">A Visual Introduction to Machine Learning</a> and <a href="http://letsfreecongress.org" target="_block">Let's Free Congress</a>. While the animations are much more complicated, the core mechanics are similar</p> <p><em>Let's get scrolling!</em></p>
+    </div>
+    <div class="panel">
+      <p>This is a block that illustrates some of the tricks I've learned while designing scroll narratives like <a href="www.r2d3.us/visual-intro-to-machine-learning-part-1/" target="_block">A Visual Introduction to Machine Learning</a> and <a href="http://letsfreecongress.org" target="_block">Let's Free Congress</a>. While the animations are much more complicated, the core mechanics are similar</p> <p><em>Let's get scrolling!</em></p>
+    </div>
+    <div class="panel">
+      <p>This is a block that illustrates some of the tricks I've learned while designing scroll narratives like <a href="www.r2d3.us/visual-intro-to-machine-learning-part-1/" target="_block">A Visual Introduction to Machine Learning</a> and <a href="http://letsfreecongress.org" target="_block">Let's Free Congress</a>. While the animations are much more complicated, the core mechanics are similar</p> <p><em>Let's get scrolling!</em></p>
+    </div>
+    <div class="panel">
+      <p>This is a block that illustrates some of the tricks I've learned while designing scroll narratives like <a href="www.r2d3.us/visual-intro-to-machine-learning-part-1/" target="_block">A Visual Introduction to Machine Learning</a> and <a href="http://letsfreecongress.org" target="_block">Let's Free Congress</a>. While the animations are much more complicated, the core mechanics are similar</p> <p><em>Let's get scrolling!</em></p>
+    </div>
+    <div class="panel">
+      <p>This is a block that illustrates some of the tricks I've learned while designing scroll narratives like <a href="www.r2d3.us/visual-intro-to-machine-learning-part-1/" target="_block">A Visual Introduction to Machine Learning</a> and <a href="http://letsfreecongress.org" target="_block">Let's Free Congress</a>. While the animations are much more complicated, the core mechanics are similar</p> <p><em>Let's get scrolling!</em></p>
+    </div>
+    
+    
+    <div class="panel">
+      <p>1. <strong>Pacing the Panels</strong>: These panels that contains the text are spaced according to the height of the window, such that just one paragraph is visible at a time.</p> 
+      <p>To achieve this in a responsive way, I use <code>vh</code> units to set the top and bottom padding on each panel. That way, the paragraphs are spaced correctly no matter the size of the screen.</p>
+    </div>
+    <div class="panel">
+      <p>2. <strong>Responsive Timing</strong>: The clock on the right hits 12 just as you finish scrolling, no matter what the screen size is. Getting the animation in sync with scroll requires using the dimensions of container and the screen as input in the animation scaling function.</p>
+      <p>The way this is achieved is through a callback on the <code>window.resize</code> handler. It reads in the relevant dimensions and feeds it back into the <code>.domain</code> of the <code>d3.scale</code> function.</p>
+    </div>
+  </div>
+</div>
+
+
+<body>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3-queue.v3.min.js"></script>
+<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+<script src="https://d3js.org/topojson.v1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="./styles/d3.slider.js"></script>
+<script src="./styles/d3.legend.js"></script>
+<script>
+// Copies a variable number of methods from source to target.
+d3.rebind = function(target, source) {
+  var i = 1, n = arguments.length, method;
+  while (++i < n) target[method = arguments[i]] = d3_rebind(target, source, source[method]);
+  return target;
+};
+
+// Method is assumed to be a standard D3 getter-setter:
+// If passed with no arguments, gets the value.
+// If passed with arguments, sets the value and returns the target.
+function d3_rebind(target, source, method) {
+  return function() {
+    var value = method.apply(source, arguments);
+    return value === source ? target : value;
+  };
+}
+
+var margin = {top: 0, right: 0, bottom: 0, left: 0},
+    width = 1500 - margin.left - margin.right,
+    height = 750;
+
+
+var svg = d3.select("#map").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height);
+
+var color = d3.scale.linear().domain([0,1.5]).range(['green','red']);
+    
+
+svg.append('rect')
+    .attr('width', width )
+    .attr('height', height )
+    .attr('fill', 'white');
+
+var g = svg.append("g").attr("width", width + margin.left + margin.right)
+    .attr("height", height)
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.queue()
+  .defer(d3.json,"world.topojson")
+  .await(ready);
+
+var projection = d3.geo.equirectangular();
+
+projection.scale(270);
+
+var path = d3.geoPath()
+  .projection(projection);
+
+
+function ready(error, data){
+    // console.log(data);
+    var countries = topojson.feature(data, data.objects.countries).features;
+
+    g.selectAll('.country')
+      .data(countries)
+      .enter().append('path')
+      .attr('class','country')
+      .attr('d', path)
+      .attr("id", function(d) { 
+        // console.log(d);
+        return d["properties"]["name"]; })
+      .on('click', function(d){
+        d3.select('.selected').classed('selected',false);
+        d3.select(this).classed('selected',true); //if directly change 'fill', it will be overwritten by css
+        var bounds = path.bounds(d),
+            dx = bounds[1][0] - bounds[0][0],
+            dy = bounds[1][1] - bounds[0][1],
+            x = (bounds[0][0] + bounds[1][0]) / 2,
+            y = (bounds[0][1] + bounds[1][1]) / 2,
+            scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
+            translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+        svg.transition()
+            .duration(3000)
+            .call(zoom.translate(translate).scale(scale).event);
+      })
+    
+    var zoom = d3.behavior.zoom()
+      .on('zoom',function(){
+        g.attr('transform','translate(' + 
+          d3.event.translate.join(',') + ')scale(' + d3.event.scale + ')');
+        g.selectAll('path')
+          .attr('d',path.projection(projection));
+    });
+    // svg.call(zoom);
+    
+  d3.csv("./data/covid_19_clean_complete.csv")
+    .row(function(d) {
+      return {
+        "Province/State":d["Province/State"],
+        "Country/Region":d["Country/Region"],
+        lat: parseFloat(d.Lat),
+        lng: parseFloat(d.Long),
+        date: moment(d.Date,"MM/DD/YYYY").diff(moment('1/22/20',"MM/DD/YYYY"),'days'),
+        number: parseFloat(d.Confirmed),
+        deaths: parseFloat(d.Deaths),
+        recovered: parseFloat(d.Recovered)
+      };
+    })
+    .get(function(err, rows) {
+    	if (err) return console.error(err);
+
+      window.site_data = rows;
+    });
+
+    setTimeout(function(){ document.getElementById('China').dispatchEvent(new MouseEvent("click")); }, 100);
+    
+}
+
+var stored = {};
+
+
+var displaySites = function(data) {
+  var sites = g.selectAll(".site")
+      .data(data, function(d) {
+        return d.number;
+      });
+  
+  sites.enter().append("circle")
+      .attr("class", "site")
+      .attr("cx", function(d) {
+        return projection([d.lng, d.lat])[0];
+      })
+      .attr("cy", function(d) {
+        return projection([d.lng, d.lat])[1];
+      })
+      .attr('fill', function(d){
+        var value = d.recovered > 0 ? (d.deaths)/(d.recovered) : 
+                    d.deaths > 0 ? Number.POSITIVE_INFINITY : 0; 
+        return color(value)
+      })
+      .transition().duration(10)
+      .attr("r", function(d) {
+        // console.log(d.number);
+        return Math.sqrt(d.number) / 10;
+      });
+      
+    sites.on('mouseover', function(d) {
+          d3.select(this).style('opacity', '1'); 
+          d3.select('#p_s').text(d["Province/State"]);
+          d3.select('#c_r').text(d["Country/Region"]);
+          d3.select('#date').text(d.Date);
+          d3.select('#confirmed').text(d.number);
+          d3.select('#deaths').text(d.deaths);
+          d3.select('#recovered').text(d.recovered);
+          d3.select('#tooltip')
+            .style('left', (d3.event.pageX + 20) + 'px')
+            .style('top', (d3.event.pageY - 80) + 'px')
+            .style('display', 'block')
+            .style('opacity', 0.8)
+        });
+        //Add Event Listeners | mouseout
+      sites.on('mouseout', function(d) { 
+          d3.select(this).style('opacity', '0.5');
+          d3.select('#tooltip')
+            .style('display', 'none');
+        });
+      
+
+ sites.exit()
+    .attr('fill', function(d){
+        var value = d.recovered > 0 ? (d.deaths)/(d.recovered) : 0; 
+        return color(value)
+      })
+    .transition().duration(10)
+    .attr("r", function(d) {
+        return Math.sqrt(d.number) / 10;
+      })
+      .remove();
+};
+
+var minDate = 0;
+var maxDate = moment('3/23/20', "MM/DD/YYYY").diff(moment('1/22/20', "MM/DD/YYYY"),'days');
+
+var myslider = d3.slider()
+  .axis(true).min(minDate).max(maxDate).step(1)
+  .on("slide", function(evt, value) {
+    // console.log('y:'+timeConverter(value));
+    var newData = _(site_data).filter( function(site) {
+      // console.log(site_data);
+      return site.date == Math.floor(value);
+    })
+    newData.sort(function (a, b){
+      return d3.descending(a.number,b.number);
+    })
+    // console.log("New set size ", newData.length);
+
+    displaySites(newData);
+  });
+
+  d3.select('#slider3').call(myslider);
+
+var container = d3.select('#container');
+var content = d3.select('#content');
+WIDTH = window.innerWidth;
+HEIGHT = window.innerHeight;
+var SCROLL_LENGTH = content.node().getBoundingClientRect().height - HEIGHT;
+var scrollTop = 0;
+var newScrollTop = 0;
+container
+  		.on("scroll.scroller", function() {
+      	newScrollTop = container.node().scrollTop
+});
+
+var time = d3.scale.linear()
+    	.domain([0, SCROLL_LENGTH])
+    	.range([minDate, maxDate])
+      .clamp(true);
+
+var render = function() {
+    if (scrollTop !== newScrollTop) {
+      scrollTop = newScrollTop;
+      var val = time(scrollTop)
+      myslider.value(val);
+      var newData = _(site_data).filter( function(site) {
+      // console.log(site_data);
+        return site.date == Math.floor(val);
+      })
+      newData.sort(function (a, b){
+        return d3.descending(a.number,b.number);
+      })
+    // console.log("New set size ", newData.length);
+
+      displaySites(newData);
+  }
+  
+  window.requestAnimationFrame(render);
+}
+window.requestAnimationFrame(render);
+
+window.onresize = setDimensions
+
+</script>
+  
+<script>
+var margin2 = {top: 50, right: 160, bottom: 80, left: 50},
+    width2 = 900 - margin2.left - margin2.right,
+    height2 = 500 - margin2.top - margin2.bottom;
+
+
+var parseDate = d3.time.format("%Y%m%d").parse;
+
+var x = d3.time.scale()
+    .range([0, width2]);
+
+var y = d3.scale.linear()
+    .range([height2, 0]);
+
+var color2 = d3.scale.category10();
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var line = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.Deaths); });
+
+var svg2 = d3.select("#chart").append("svg")
+    .attr("width", width2 + margin.left + margin.right)
+    .attr("height", height2 + margin.top + margin.bottom)
+    .style("background-color", 'transparent')
+  .append("g")
+    .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+d3.tsv("./data/test.tsv", function(error, data) {
+  
+  color2.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+
+  data.forEach(function(d) {
+    d.date = parseDate(d.date);
+  });
+
+  var cs = color.domain().map(function(name) {
+    return {
+      name: name,
+      values: data.map(function(d) {
+        return {date: d.date, val: +d[name]};
+      })
+    };
+  });
+
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+
+  y.domain([
+    d3.min(cs, function(c) { return d3.min(c.values, function(v) { return v.val; }); }),
+    d3.max(cs, function(c) { return d3.max(c.values, function(v) { return v.val; }); })
+  ]);
+
+  svg2.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height2 + ")")
+      .call(xAxis);
+
+  svg2.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Temperature (ºF)");
+
+  var country = svg2.selectAll(".country")
+      .data(cs)
+    .enter().append("g")
+      .attr("class", "country");
+
+  country.append("path")
+      .attr("class", "line")
+      .attr("d", function(d) { return line(d.values); })
+      .attr("data-legend",function(d) { return d.name})
+      .style("stroke", function(d) { return color(d.name); });
+
+  // country.append("text")
+  //     .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+  //     .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.val) + ")"; })
+  //     .attr("x", 3)
+  //     .attr("dy", ".35em")
+  //     .text(function(d) { return d.name; });
+
+
+  legend = svg.append("g")
+    .attr("class","legend")
+    .attr("transform","translate(50,30)")
+    .style("font-size","12px")
+    .call(d3.legend)
+
+  setTimeout(function() { 
+    legend
+      .style("font-size","20px")
+      .attr("data-style-padding",10)
+      .call(d3.legend)
+  },1000)
+
+});
+
+</script>
+
+</body>
+</html>
