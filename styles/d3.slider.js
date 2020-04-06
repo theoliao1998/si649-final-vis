@@ -152,7 +152,14 @@ return function module() {
 
           axis = d3.svg.axis()
               .ticks(Math.round(sliderLength / 100))
-              .tickFormat(tickFormat)
+              .tickFormat(function(d){
+                var date = new Date('2020-01-22');
+                date.setDate(date.getDate() + d);
+                return date.toLocaleDateString('en-GB', {
+                  day : 'numeric',
+                  month : 'short',
+              }).split(' ').join(' ');
+              })
               .orient((orientation === "horizontal") ? "bottom" :  "right");
 
         }
