@@ -28,36 +28,33 @@
 <div id="chart" class="card"></div>
 </div>
 <div id="event" class="card">
-  <h3>Date:<span id='curDate'></span>, day <span id='day'></span> after outbreak</h3>
-  <div id="event-content"></div>
+  <h3><span id='curDate'></span>, day <span id='day'></span> after outbreak</h3>
+  <div id="event-content"><h1>COVID-19 Visualization</h1>
+      <p>Scroll to start</p></div>
 </div>
 <div id="container">
 
   <div id="content">
     <div class="panel">
-      <h1>COVID-19 Visualization</h1>
-      <p>Scroll to start</p>
+      <p>here is event 1</p>
     </div>
     <div class="panel">
-      
       <p>here is event 2</p>
     </div>
     <div class="panel">
       <p>here is event 3</em></p>
     </div>
     <div class="panel">
-      <p>This is a block that illustrates some of the tricks I've learned while designing scroll narratives like <a href="www.r2d3.us/visual-intro-to-machine-learning-part-1/" target="_block">A Visual Introduction to Machine Learning</a> and <a href="http://letsfreecongress.org" target="_block">Let's Free Congress</a>. While the animations are much more complicated, the core mechanics are similar</p> <p><em>Let's get scrolling!</em></p>
+      <p>here is event 4</p>
     </div>
     <div class="panel">
-      <p>This is a block that illustrates some of the tricks I've learned while designing scroll narratives like <a href="www.r2d3.us/visual-intro-to-machine-learning-part-1/" target="_block">A Visual Introduction to Machine Learning</a> and <a href="http://letsfreecongress.org" target="_block">Let's Free Congress</a>. While the animations are much more complicated, the core mechanics are similar</p> <p><em>Let's get scrolling!</em></p>
+      <p>here is event 5</p>
     </div>
     <div class="panel">
-      <p>1. <strong>Pacing the Panels</strong>: These panels that contains the text are spaced according to the height of the window, such that just one paragraph is visible at a time.</p> 
-      <p>To achieve this in a responsive way, I use <code>vh</code> units to set the top and bottom padding on each panel. That way, the paragraphs are spaced correctly no matter the size of the screen.</p>
+      <p>here is event 6</p>
     </div>
     <div class="panel">
-      <p>2. <strong>Responsive Timing</strong>: The clock on the right hits 12 just as you finish scrolling, no matter what the screen size is. Getting the animation in sync with scroll requires using the dimensions of container and the screen as input in the animation scaling function.</p>
-      <p>The way this is achieved is through a callback on the <code>window.resize</code> handler. It reads in the relevant dimensions and feeds it back into the <code>.domain</code> of the <code>d3.scale</code> function.</p>
+      <p>here is event 7</p>
     </div>
     <div class="panel">
     </div>
@@ -185,7 +182,6 @@ var zoom = d3.behavior.zoom()
 function ready(error, data){
     // console.log(data);
     var countries = topojson.feature(data, data.objects.countries).features;
-    check_if_in_view();
     g.selectAll('.country')
       .data(countries)
       .enter().append('path')
@@ -208,8 +204,8 @@ function ready(error, data){
             dy = bounds[1][1] - bounds[0][1],
             X = (bounds[0][0] + bounds[1][0]) / 2,
             Y = (bounds[0][1] + bounds[1][1]) / 2,
-            scale = Math.max(1, Math.min(8, 0.8 / Math.max(dx / width, dy / height))),
-            translate = [width / 2 - scale * X + 120, height / 2 - scale * Y+20];
+            scale = Math.max(1, Math.min(8, 0.6 / Math.max(dx / width, dy / height))),
+            translate = [width / 2 - scale * X + 160, height / 2 - scale * Y+40];
 
         svg.transition()
             .duration(3000)
