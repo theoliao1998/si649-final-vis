@@ -1,10 +1,14 @@
 let $panel=$('.panel');
+let event_num=0;
 function check_if_in_view() {
 	  var window_height = $(window).height();
 	  var window_top_position = $(window).scrollTop();
 	  var window_bottom_position = (window_top_position + window_height);
 	  var $html;
-
+	  if(event_num==0){
+	  	$('#chart').css('display','block');
+	  }
+	  event_num=event_num+1;
 	  $.each($panel, function() {
 	    var $element = $(this);
 	    var element_height = $element.outerHeight();

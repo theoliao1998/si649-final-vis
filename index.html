@@ -14,24 +14,27 @@
 </head>
 <body>
 <div id='vis'>
-<div id='map'></div>
-<div id="tooltip">
-  <span id="c_r" class="info"></span><br>
-  Province/State: <span id="p_s" class="info"></span><br> 
-  Date: <span id="date" class="info"></span><br>  
-  Accumulated Confirmed: <span id="confirmed" class="info"></span><br>  
-  Accumulated Deaths: <span id="deaths" class="info"></span><br> 
-  Accumulated Recovered: <span id="recovered" class="info"></span><br> 
+  <div id='map'></div>
+  <div id="tooltip">
+    <span id="c_r" class="info"></span><br>
+    Province/State: <span id="p_s" class="info"></span><br> 
+    Date: <span id="date" class="info"></span><br>  
+    Accumulated Confirmed: <span id="confirmed" class="info"></span><br>  
+    Accumulated Deaths: <span id="deaths" class="info"></span><br> 
+    Accumulated Recovered: <span id="recovered" class="info"></span><br> 
+  </div>
+  <div id="slider3">
+  </div>
+  <aside>
+    <div id="event" class="card">
+      <h3><span id='curDate'></span>, day <span id='day'></span> after outbreak</h3>
+      <div id="event-content"><h1>COVID-19 Visualization</h1>
+          <p>Scroll to start</p></div>
+    </div>
+    <div id="chart" class="card"></div>
+  </aside>
 </div>
-<div id="slider3">
-</div>
-<div id="chart" class="card"></div>
-</div>
-<div id="event" class="card">
-  <h3><span id='curDate'></span>, day <span id='day'></span> after outbreak</h3>
-  <div id="event-content"><h1>COVID-19 Visualization</h1>
-      <p>Scroll to start</p></div>
-</div>
+
 <div id="container">
 
   <div id="content">
@@ -205,7 +208,7 @@ function ready(error, data){
             X = (bounds[0][0] + bounds[1][0]) / 2,
             Y = (bounds[0][1] + bounds[1][1]) / 2,
             scale = Math.max(1, Math.min(8, 0.6 / Math.max(dx / width, dy / height))),
-            translate = [width / 2 - scale * X + 160, height / 2 - scale * Y+40];
+            translate = [width / 2 - scale * X + 240, height / 2 - scale * Y-40];
 
         svg.transition()
             .duration(3000)
@@ -217,7 +220,7 @@ function ready(error, data){
           }
           svg.transition()
             .duration(3000) //here
-            .call(zoom.translate([180,240]).scale(1).event);
+            .call(zoom.translate([180,180]).scale(1).event);
         }
       })
     svg.call(zoom);
@@ -499,7 +502,7 @@ var render = function() {
 
         svg.transition()
             .duration(3000)//here
-            .call(zoom.translate([180,240]).scale(1).event);
+            .call(zoom.translate([180,180]).scale(1).event);
       }
       myslider.value(val);
       var newData = _(site_data).filter( function(site) {

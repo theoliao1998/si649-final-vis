@@ -1,25 +1,31 @@
 body{
 	color:#353535;
-	/*background:white url("/img/txture.png") top left repeat;*/
 	font:300 16px/150%'Noto Serif',serif;
 	overflow: auto;
-    -ms-overflow-style: none; /* IE 11 */
-    scrollbar-width: none; /* Firefox 64 */
+  -ms-overflow-style: none; /* IE 11 */
+  scrollbar-width: none; /* Firefox 64 */
+  margin: 0;
 }
 @-moz-document url-prefix() {
     html,body{overflow: hidden !important;}
 }
 
-h1{
-  font-size:2.5em;
+h1,h2,h3{
   line-height: 120%;
   font-weight: bold;
+  margin: 0;
 }
-h3{
-  font-size: 1.5em;
-  font-weight: bold;
-  line-height: 120%;
+h4,p{
+  line-height: 150%;
+  font-weight: normal;
+  margin: 0;
 }
+
+h1{font-size:2.5em;}
+h2{font-size: 1.8em;}
+h3{font-size: 1.5em;}
+
+
 
 nav{width:1200px;margin:auto;}
 nav a{display:inline-block;color:#fff;text-decoration:none;padding:.25em;margin:.25em 1em .25em 0;border-bottom:2px solid transparent;-webkit-transition:border-color .4s;}
@@ -172,34 +178,44 @@ svg{
 #map{
   position: absolute;
 }
+aside{
+  width: 30vw;
+  position: fixed;
+  z-index: 150;
+  left: 4vw;
+  top:4vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+}
 
 .card{
-  padding: .5em 1.5em;
+  width: 100%;
+  padding: 1.5em;
+  margin-bottom: 1em;
   text-align: left;
   border-radius: 1em;
   background-color: rgba(255,255,255,0.66);
   box-shadow: 0 0 1em 0 rgba(67, 71, 83, 0.12);
   
 }
-#chart,#event{
+/*#chart,#event{
   left: 4vw;
   width: 26vw;
   position: fixed;
-  z-index: 150;
-}
+  
+}*/
 #chart{
-  top: 16vw;
-  overflow: auto;
+  display: none;
 }
 #chart svg,
 #chart svg g{
 	width: 100%;
   height: 360px;
 }
-#event{  
-  top: 4vw;
-  height: 10vw;
-  overflow: scroll;
+#event{ 
+  max-height: 20vw;
 }
 #vis{
   /* position: absolute;  */
@@ -214,12 +230,12 @@ svg{
 	width: 100%;
 	height: 90vh;
 	overflow-y: scroll;
-	margin:auto;
 	position: absolute;
-	left: 5vw;
+	left: 0;
+  top: 0;
 	text-align: left;
-    z-index: 100;
-    scrollbar-width: none;
+  z-index: 100;
+  scrollbar-width: none;
 }
 
 #content{width: 100%}
