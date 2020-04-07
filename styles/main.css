@@ -70,7 +70,7 @@ rect.homosexual-chart{fill:#9400d3;}
 rect.homosexual-chart:hover{fill:#b44de0}
 rect.nt{opacity:.5}
 rect.selected{fill:#fff}
-text{fill:#353535;font-size:1.2em}
+/* text{fill:#353535;font-size:1.2em} */
 .clear{clear:both}
 .btn{display:inline-block;padding:1em;color:#fff;background:#dc143c;border-radius:7px;text-decoration:none;text-shadow:-1px -1px 0 rgba(0,0,0,0.3),1px 1px 0 rgba(255,255,255,0.3);box-shadow:1px 1px 3px rgba(0,0,0,0.5);transition:background-color .3s;}
 .btn:hover{background:#ec2d53}
