@@ -201,7 +201,10 @@ function ready(error, data){
       window.line_data = rows;
     });
 
-    setTimeout(function(){ document.getElementById('China').dispatchEvent(new MouseEvent("click")); }, 100);
+    // document.querySelector('body').addEventListener("scroll", function(){
+    //   document.getElementById('China').dispatchEvent(new MouseEvent("click"));
+    // })
+    // setTimeout(function(){ document.getElementById('China').dispatchEvent(new MouseEvent("click")); }, 100);
     
 }
 
@@ -438,7 +441,7 @@ var render = function() {
       } else if (val < 30){
         // curCountry = 'China';
         // d3.select("#Korea_Republic_of").classed('selected',false);
-        if  (curCountry != 'China')
+        if  (d3.select('#China').classed('selected') == false)
         document.getElementById('China').dispatchEvent(new MouseEvent("click"));
       } else{
         document.getElementById("slider3").style.display = "block";
