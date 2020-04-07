@@ -240,7 +240,7 @@ var displaySites = function(data) {
           d3.select(this).style('opacity', '1'); 
           d3.select('#p_s').text(d["Province/State"]);
           d3.select('#c_r').text(d["Country/Region"]);
-          d3.select('#date').text(d.Date);
+          // d3.select('#date').text(d.Date);
           d3.select('#confirmed').text(d.number);
           d3.select('#deaths').text(d.deaths);
           d3.select('#recovered').text(d.recovered);
