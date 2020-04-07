@@ -1,4 +1,14 @@
-body{color:#fff;background-color:#222;background:#222 url("/img/txture.png") top left repeat;font-family:'Raleway',sans-serif}
+body{
+	color:#fff;
+	background:white url("/img/txture.png") top left repeat;
+	font-family:'Raleway',sans-serif;
+	overflow: auto;
+    -ms-overflow-style: none; /* IE 11 */
+    scrollbar-width: none; /* Firefox 64 */
+}
+@-moz-document url-prefix() {
+    html,body{overflow: hidden !important;}
+}
 nav{width:1200px;margin:auto;}
 nav a{display:inline-block;color:#fff;text-decoration:none;padding:.25em;margin:.25em 1em .25em 0;border-bottom:2px solid transparent;-webkit-transition:border-color .4s;}
 nav a:hover{border-bottom:2px solid #fff}
@@ -28,9 +38,9 @@ blockquote div{text-align:right;padding:0 1em 0 1em}
 .article em,.article strong{color:#fff}
 pre code{display:block;padding:12px;background:rgba(255,255,255,0.1);border-radius:7px;border-bottom:2px solid #aaa}
 .book-panel a{display:block;padding:0;text-align:center}
-rect{stroke:none;fill:#4682b4;transition:fill .3s;}
+rect{stroke:none;fill:#eee;transition:fill .3s;}
 rect:nth-child(even){fill:#3f75a2}
-rect:hover{cursor:pointer;fill:#add8e6;transition:fill .3s}
+/*rect:hover{cursor:pointer;fill:white;transition:fill .3s}*/
 rect.science-chart{fill:#2e8b57;}
 rect.science-chart:hover{fill:#6dae89}
 rect.violence-chart{fill:#dc143c;}
@@ -90,3 +100,115 @@ textarea{padding:1%;border-radius:6px}
 #filter-notice,#contra-notice{position:absolute;background:rgba(255,255,255,0.2);padding:12px;border-radius:7px;opacity:0;text-shadow:1px 1px 1px rgba(0,0,0,0.5)}
 #filter-notice{top:112px;left:50%;margin-left:-400px}
 #contra-notice{top:260px;left:50%;width:210px;margin-left:-105px}
+
+
+
+
+.background {
+  fill: none;
+  pointer-events: all; 
+}
+
+svg{
+  background: white;
+}
+
+.country{
+  fill: #ccc;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  cursor: pointer;
+  stroke-width: .3;
+}
+
+.selected{
+  fill: #FFE645;
+}
+
+.site {
+	opacity: 0.5;
+}
+
+#slider3{
+  position: fixed;
+  width: 1000px;
+  /*display: none;*/
+  bottom: 30px;
+  left:19px;
+}
+
+#tooltip {
+  text-align: left;
+  padding: 16px;
+  background-color: lightsalmon;
+  border: 1px solid black;
+  width: auto;
+  opacity: 0;
+  color: black;
+  position: absolute;
+}
+#map{
+  position: absolute;
+}
+
+#chart{
+  position: fixed;
+  width : 32%;
+  height: 36%;
+  z-index: 150;
+  bottom: 400px;
+  right: 10px;
+}
+
+#vis{
+  /* position: absolute;  */
+      top: 100; 
+      left: 100; 
+      width: 100%; 
+      z-index: 50;
+}
+#container {
+      position: relative;
+      z-index: 100;
+      scrollbar-width: none;
+}
+
+.panel {
+  width: 100%;
+  padding-left: 20px;
+  padding-top: 25vh;
+  padding-bottom: 25vh;
+}
+.panel p {
+  padding-right: 50%;
+}
+.panel:first-child {
+  padding-top: 35vh;
+}
+.panel:last-child {
+  padding-bottom: 45vh;
+}
+
+::-webkit-scrollbar { display: none; }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+/* .line {
+  fill: none;
+  stroke-width: 1.5px;
+} */
+
+.legend rect {
+  fill:white;
+  stroke:black;
+  opacity:0.8;}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<head>
+<head lang="en">
     
     <!-- <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Allura|Raleway"/>
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"/>
@@ -9,125 +9,8 @@
     <link rel="alternate" type="application/atom+xml" title="Blog" href="/atom.xml" /> -->
     <meta charset="utf-8">
     <link rel="stylesheet" href="./styles/d3.slider.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
 <style>
-body{
-    overflow: auto;
-    -ms-overflow-style: none; /* IE 11 */
-    scrollbar-width: none; /* Firefox 64 */
-}
-
-@-moz-document url-prefix() {
-    html,body{overflow: hidden !important;}
-}
-
-.background {
-  fill: none;
-  pointer-events: all; 
-}
-
-svg{
-  background: white;
-}
-
-.country{
-  fill: #cccccc;
-  stroke: #fff;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  cursor: pointer;
-  stroke-width: .3;
-}
-
-.selected{
-  fill: orange;
-}
-
-.site {
-	opacity: 0.5;
-}
-
-#slider3{
-  position: fixed;
-  width: 1000px;
-  display: none;
-  bottom: 30px;
-  left:19px;
-}
-
-#tooltip {
-  text-align: left;
-  padding: 16px;
-  background-color: lightsalmon;
-  border: 1px solid black;
-  width: auto;
-  opacity: 0;
-  color: black;
-  position: absolute;
-}
-#map{
-  position: absolute; 
-}
-
-#chart{
-  position: fixed;
-  width : 32%;
-  height: 36%;
-  z-index: 150;
-  bottom: 400px;
-  right: 10px;
-}
-
-#vis{
-  /* position: absolute;  */
-      top: 100; 
-      left: 100; 
-      width: 100%; 
-      z-index: 50;
-}
-#container {
-      position: relative;
-      z-index: 100;
-      scrollbar-width: none;
-}
-
-.panel {
-  width: 100%;
-  padding-left: 20px;
-  padding-top: 25vh;
-  padding-bottom: 25vh;
-}
-.panel p {
-  padding-right: 50%;
-}
-.panel:first-child {
-  padding-top: 35vh;
-}
-.panel:last-child {
-  padding-bottom: 45vh;
-}
-
-::-webkit-scrollbar { display: none; }
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.x.axis path {
-  display: none;
-}
-
-/* .line {
-  fill: none;
-  stroke-width: 1.5px;
-} */
-
-.legend rect {
-  fill:white;
-  stroke:black;
-  opacity:0.8;}
 
 </style>
 </head>
