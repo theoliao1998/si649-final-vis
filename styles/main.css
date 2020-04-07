@@ -1,7 +1,7 @@
 body{
-	color:#fff;
-	background:white url("/img/txture.png") top left repeat;
-	font-family:'Raleway',sans-serif;
+	color:#353535;
+	/*background:white url("/img/txture.png") top left repeat;*/
+	font:300 16px/150%'Noto Serif',serif;
 	overflow: auto;
     -ms-overflow-style: none; /* IE 11 */
     scrollbar-width: none; /* Firefox 64 */
@@ -9,10 +9,17 @@ body{
 @-moz-document url-prefix() {
     html,body{overflow: hidden !important;}
 }
+
+h1{
+  font-size:2.5em;
+  line-height: 120%;
+  font-weight: bold;
+}
+
 nav{width:1200px;margin:auto;}
 nav a{display:inline-block;color:#fff;text-decoration:none;padding:.25em;margin:.25em 1em .25em 0;border-bottom:2px solid transparent;-webkit-transition:border-color .4s;}
 nav a:hover{border-bottom:2px solid #fff}
-h1{text-align:center;font-family:'Allura',sans-serif;font-size:48pt;margin:0 0 -.8em 0}
+
 .article h1{text-align:left;margin:0 0 .25em 0}
 .article h3{border:none}
 .article blockquote{float:none;margin:2em auto;border-radius:7px;border-bottom:2px solid #808080}
@@ -51,7 +58,7 @@ rect.homosexual-chart{fill:#9400d3;}
 rect.homosexual-chart:hover{fill:#b44de0}
 rect.nt{opacity:.5}
 rect.selected{fill:#fff}
-text{fill:#fff;stroke:#fff;font-size:24pt}
+text{fill:#353535;font-size:1.2em}
 .clear{clear:both}
 .btn{display:inline-block;padding:1em;color:#fff;background:#dc143c;border-radius:7px;text-decoration:none;text-shadow:-1px -1px 0 rgba(0,0,0,0.3),1px 1px 0 rgba(255,255,255,0.3);box-shadow:1px 1px 3px rgba(0,0,0,0.5);transition:background-color .3s;}
 .btn:hover{background:#ec2d53}
@@ -81,7 +88,6 @@ text{fill:#fff;stroke:#fff;font-size:24pt}
 .right{float:right}
 .quarter{width:20%}
 .threequarters{width:78%}
-#container,.container{width:1200px;margin:auto}
 #social{text-align:center;margin:1em;}
 #social .spacer{display:inline-block;width:24px}
 .contradictionsTable{font-size:7pt;margin-top:24px;margin-bottom:24px;}
@@ -120,8 +126,12 @@ svg{
   stroke-linejoin: round;
   cursor: pointer;
   stroke-width: .3;
+  transition-property: ease-in-out;
+  transition:fill .3s;
 }
-
+.country:hover{
+	fill:#bbb;
+}
 .selected{
   fill: #FFE645;
 }
@@ -140,27 +150,52 @@ svg{
 
 #tooltip {
   text-align: left;
-  padding: 16px;
-  background-color: lightsalmon;
-  border: 1px solid black;
+  padding: 1.5em;
+  color: #353535;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 1em;
   width: auto;
   opacity: 0;
-  color: black;
+  box-shadow: 0 0 1em 0 rgba(67, 71, 83, 0.12);
   position: absolute;
 }
+#c_r{
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
 #map{
   position: absolute;
 }
 
-#chart{
-  position: fixed;
-  width : 32%;
-  height: 36%;
-  z-index: 150;
-  bottom: 400px;
-  right: 10px;
+.card{
+  padding: .5em 1.5em;
+  text-align: left;
+  border-radius: 1em;
+  background-color: rgba(255,255,255,0.66);
+  box-shadow: 0 0 1em 0 rgba(67, 71, 83, 0.12);
+  
 }
-
+#chart,#event{
+  left: 4vw;
+  width: 26vw;
+  position: fixed;
+  z-index: 150;
+}
+#chart{
+  top: 16vw;
+  overflow: auto;
+}
+#chart svg,
+#chart svg g{
+	width: 100%;
+  height: 360px;
+}
+#event{  
+  top: 4vw;
+  height: 10vw;
+  overflow: scroll;
+}
 #vis{
   /* position: absolute;  */
       top: 100; 
@@ -168,23 +203,36 @@ svg{
       width: 100%; 
       z-index: 50;
 }
-#container {
-      position: relative;
-      z-index: 100;
-      scrollbar-width: none;
+
+#container{
+	position: relative;
+	width: 100%;
+	height: 90vh;
+	overflow-y: scroll;
+	margin:auto;
+	position: absolute;
+	left: 5vw;
+	text-align: left;
+    z-index: 100;
+    scrollbar-width: none;
 }
+
+#content{width: 100%}
 
 .panel {
   width: 100%;
   padding-left: 20px;
-  padding-top: 25vh;
-  padding-bottom: 25vh;
+  margin:30vh 0;
+  color:transparent;
 }
 .panel p {
   padding-right: 50%;
 }
+.panel a{
+  color:transparent;
+}
 .panel:first-child {
-  padding-top: 35vh;
+  padding-top: 50vh;
 }
 .panel:last-child {
   padding-bottom: 45vh;

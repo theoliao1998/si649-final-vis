@@ -4,22 +4,20 @@
     <!-- <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Allura|Raleway"/>
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="./styles/main.css"/>
-    
-
     <link rel="alternate" type="application/atom+xml" title="Blog" href="/atom.xml" /> -->
     <meta charset="utf-8">
     <link rel="stylesheet" href="./styles/d3.slider.css" />
     <link rel="stylesheet" href="./styles/main.css" />
-<style>
-
-</style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>SI 649 team 1-3</title>
 </head>
 <body>
 <div id='vis'>
 <div id='map'></div>
 <div id="tooltip">
+  <span id="c_r" class="info"></span><br>
   Province/State: <span id="p_s" class="info"></span><br> 
-  Country/Region: <span id="c_r" class="info"></span><br>
   Date: <span id="date" class="info"></span><br>  
   Accumulated Confirmed: <span id="confirmed" class="info"></span><br>  
   Accumulated Deaths: <span id="deaths" class="info"></span><br> 
@@ -27,13 +25,22 @@
 </div>
 <div id="slider3">
 </div>
-<div id="chart"></div>
+<div id="chart" class="card"></div>
 </div>
+<div id="event" class="card"></div>
+<div id="container">
 
-<div id="container" style="height: 90vh; overflow: scroll">
   <div id="content">
     <div class="panel">
-      <p>This is a block that illustrates some of the tricks I've learned while designing scroll narratives like <a href="www.r2d3.us/visual-intro-to-machine-learning-part-1/" target="_block">A Visual Introduction to Machine Learning</a> and <a href="http://letsfreecongress.org" target="_block">Let's Free Congress</a>. While the animations are much more complicated, the core mechanics are similar</p> <p><em>Let's get scrolling!</em></p>
+      <h1>COVID-19 Visualization</h1>
+      <p>Scroll to start</p>
+    </div>
+    <div class="panel">
+      <h2>Date:<span id='curDate'></span>, day 1 after outbreak</h2>
+      <p>here is event 2</p>
+    </div>
+    <div class="panel">
+      <p>here is event 3</em></p>
     </div>
     <div class="panel">
       <p>This is a block that illustrates some of the tricks I've learned while designing scroll narratives like <a href="www.r2d3.us/visual-intro-to-machine-learning-part-1/" target="_block">A Visual Introduction to Machine Learning</a> and <a href="http://letsfreecongress.org" target="_block">Let's Free Congress</a>. While the animations are much more complicated, the core mechanics are similar</p> <p><em>Let's get scrolling!</em></p>
@@ -41,14 +48,6 @@
     <div class="panel">
       <p>This is a block that illustrates some of the tricks I've learned while designing scroll narratives like <a href="www.r2d3.us/visual-intro-to-machine-learning-part-1/" target="_block">A Visual Introduction to Machine Learning</a> and <a href="http://letsfreecongress.org" target="_block">Let's Free Congress</a>. While the animations are much more complicated, the core mechanics are similar</p> <p><em>Let's get scrolling!</em></p>
     </div>
-    <div class="panel">
-      <p>This is a block that illustrates some of the tricks I've learned while designing scroll narratives like <a href="www.r2d3.us/visual-intro-to-machine-learning-part-1/" target="_block">A Visual Introduction to Machine Learning</a> and <a href="http://letsfreecongress.org" target="_block">Let's Free Congress</a>. While the animations are much more complicated, the core mechanics are similar</p> <p><em>Let's get scrolling!</em></p>
-    </div>
-    <div class="panel">
-      <p>This is a block that illustrates some of the tricks I've learned while designing scroll narratives like <a href="www.r2d3.us/visual-intro-to-machine-learning-part-1/" target="_block">A Visual Introduction to Machine Learning</a> and <a href="http://letsfreecongress.org" target="_block">Let's Free Congress</a>. While the animations are much more complicated, the core mechanics are similar</p> <p><em>Let's get scrolling!</em></p>
-    </div>
-    
-    
     <div class="panel">
       <p>1. <strong>Pacing the Panels</strong>: These panels that contains the text are spaced according to the height of the window, such that just one paragraph is visible at a time.</p> 
       <p>To achieve this in a responsive way, I use <code>vh</code> units to set the top and bottom padding on each panel. That way, the paragraphs are spaced correctly no matter the size of the screen.</p>
@@ -56,6 +55,8 @@
     <div class="panel">
       <p>2. <strong>Responsive Timing</strong>: The clock on the right hits 12 just as you finish scrolling, no matter what the screen size is. Getting the animation in sync with scroll requires using the dimensions of container and the screen as input in the animation scaling function.</p>
       <p>The way this is achieved is through a callback on the <code>window.resize</code> handler. It reads in the relevant dimensions and feeds it back into the <code>.domain</code> of the <code>d3.scale</code> function.</p>
+    </div>
+    <div class="panel">
     </div>
   </div>
 </div>
@@ -68,6 +69,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script src="./styles/d3.slider.js"></script>
 <script src="./styles/d3.legend.js"></script>
+<script src="./styles/content.js"></script>
+
 <script>
 
 var begin = {'Afghanistan': '3/22/20', 'Albania': '3/21/20', 'Algeria': '3/12/20', 'Andorra': '3/22/20', 'Angola': '3/31/20', 'Argentina': '3/14/20', 'Armenia': '3/26/20', 'Australia': '3/1/20', 'Austria': '3/12/20', 'Azerbaijan': '3/13/20', 'Bahamas': '4/1/20', 'Bahrain': '3/16/20', 'Bangladesh': '3/18/20', 'Belarus': '3/31/20', 'Belgium': '3/11/20', 'Bolivia': '4/1/20', 'Bosnia and Herzegovina': '3/21/20', 'Brazil': '3/17/20', 'Brunei': '3/28/20', 'Bulgaria': '3/21/20', 'Burkina Faso': '3/21/20', 'Cameroon': '3/25/20', 'Chile': '3/22/20', 'China': '1/22/20', 'Colombia': '3/22/20', 'Congo (Brazzaville)': '4/2/20', 'Congo (Kinshasa)': '3/27/20', 'Costa Rica': '3/21/20', "Cote d'Ivoire": '3/29/20', 'Croatia': '3/19/20', 'Cuba': '3/24/20', 'Cyprus': '3/22/20', 'Czechia': '3/22/20', 'Denmark': '3/14/20', 'Diamond Princess': '2/20/20', 'Dominican Republic': '3/24/20', 'Ecuador': '3/21/20', 'Egypt': '3/10/20', 'Estonia': '3/25/20', 'Finland': '3/21/20', 'France': '2/15/20', 'Gabon': '4/3/20', 'Gambia': '4/1/20', 'Germany': '3/10/20', 'Ghana': '3/26/20', 'Greece': '3/14/20', 'Guatemala': '3/25/20', 'Honduras': '3/28/20', 'Hungary': '3/15/20', 'Iceland': '3/15/20', 'India': '3/11/20', 'Indonesia': '3/11/20', 'Iran': '2/26/20', 'Iraq': '3/10/20', 'Ireland': '3/17/20', 'Israel': '3/21/20', 'Italy': '2/22/20', 'Jamaica': '3/19/20', 'Japan': '2/13/20', 'Jordan': '3/27/20', 'Kazakhstan': '3/26/20', 'Kenya': '3/26/20', 'Kosovo': '3/27/20', 'Kyrgyzstan': '4/3/20', 'Latvia': '4/3/20', 'Lebanon': '3/10/20', 'Lithuania': '3/21/20', 'Luxembourg': '3/22/20', 'Malaysia': '3/17/20', 'Mauritania': '3/30/20', 'Mexico': '3/19/20', 'Moldova': '3/18/20', 'Monaco': '3/29/20', 'Montenegro': '4/3/20', 'Morocco': '3/13/20', 'Netherlands': '3/14/20', 'New Zealand': '3/29/20', 'Nigeria': '3/23/20', 'North Macedonia': '3/22/20', 'Norway': '3/14/20', 'Oman': '3/31/20', 'Pakistan': '3/19/20', 'Panama': '3/24/20', 'Paraguay': '3/27/20', 'Peru': '3/20/20', 'Philippines': '2/12/20', 'Poland': '3/16/20', 'Portugal': '3/17/20', 'Qatar': '3/28/20', 'Romania': '3/22/20', 'Russia': '3/19/20', 'San Marino': '3/14/20', 'Saudi Arabia': '3/24/20', 'Senegal': '4/1/20', 'Serbia': '3/20/20', 'Singapore': '3/21/20', 'Slovakia': '4/1/20', 'Slovenia': '3/25/20', 'South Africa': '3/27/20', 'South Korea': '2/20/20', 'Spain': '3/10/20', 'Sri Lanka': '3/28/20', 'Sudan': '3/31/20', 'Sweden': '3/11/20', 'Switzerland': '3/10/20', 'Taiwan*': '2/16/20', 'Tanzania': '3/31/20', 'Thailand': '3/1/20', 'Togo': '3/27/20', 'Trinidad and Tobago': '3/27/20', 'Tunisia': '3/22/20', 'Turkey': '3/25/20', 'US': '2/29/20', 'Ukraine': '3/21/20', 'United Arab Emirates': '3/20/20', 'United Kingdom': '3/10/20', 'Uruguay': '3/31/20', 'Uzbekistan': '3/27/20', 'Venezuela': '3/27/20', 'West Bank and Gaza': '3/26/20', 'Zambia': '4/3/20'};
@@ -95,10 +98,13 @@ function d3_rebind(target, source, method) {
     return value === source ? target : value;
   };
 }
-
+WIDTH = window.innerWidth;
+HEIGHT = window.innerHeight;
 var margin = {top: 0, right: 0, bottom: 0, left: 0},
-    width = 1600 - margin.left - margin.right;
-    height = 750- margin.top - margin.bottom;
+    width=WIDTH;
+    height=WIDTH/1.8;
+    // width = 1600 - margin.left - margin.right;
+    // height = 750- margin.top - margin.bottom;
 
 
 var svg = d3.select("#map").append("svg")
@@ -110,7 +116,7 @@ var color = d3.scale.linear().domain([0,1.5]).range(['green','red']);
 
 var margin2 = {top: 50, right: 160, bottom: 80, left: 50},
     width2 = 600 - margin2.left - margin2.right,
-    height2 = 700 - margin2.top - margin2.bottom;
+    height2 = 400 - margin2.top - margin2.bottom;
 
 
 var parseTime = d3.time.format("%m/%d/%Y").parse;
@@ -137,8 +143,8 @@ var line = d3.svg.line()
     .y(function(d) { return y(d[curCountry] != 'inf' ? +d[curCountry] : 0);});
 
 var svg2 = d3.select("#chart").append("svg")
-    .attr("width", width2 + margin2.left + margin2.right)
-    .attr("height", height2 + margin2.top + margin2.bottom)
+    // .attr("width", width2 + margin2.left + margin2.right)
+    // .attr("height", height2 + margin2.top + margin2.bottom)
     .style("background-color", 'transparent')
   .append("g")
     .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
@@ -151,8 +157,8 @@ svg.append('rect')
     .attr('fill', 'white');
 
 var g = svg.append("g").attr("width", width + margin.left + margin.right)
-    .attr("height", height)
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("height", height)//here
+    .attr("translate", "0 0");
 
 d3.queue()
   .defer(d3.json,"world.topojson")
@@ -176,7 +182,7 @@ var zoom = d3.behavior.zoom()
 function ready(error, data){
     // console.log(data);
     var countries = topojson.feature(data, data.objects.countries).features;
-
+    check_if_in_view();
     g.selectAll('.country')
       .data(countries)
       .enter().append('path')
@@ -199,8 +205,8 @@ function ready(error, data){
             dy = bounds[1][1] - bounds[0][1],
             X = (bounds[0][0] + bounds[1][0]) / 2,
             Y = (bounds[0][1] + bounds[1][1]) / 2,
-            scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
-            translate = [width / 2 - scale * X, height / 2 - scale * Y];
+            scale = Math.max(1, Math.min(8, 0.6 / Math.max(dx / width, dy / height))),
+            translate = [width / 2 - scale * X + 120, height / 2 - scale * Y+20];
 
         svg.transition()
             .duration(3000)
@@ -208,11 +214,11 @@ function ready(error, data){
         } else{
           d3.select('.selected').classed('selected',false);
           if(curCountry!='China' && curCountry!='Italy'){
-            svg2.selectAll(".c_"+curCountry.split(' ').join('_')).remove();
+            svg.selectAll(".c_"+curCountry.split(' ').join('_')).remove();
           }
           svg.transition()
-            .duration(3000)
-            .call(zoom.translate([0,0]).scale(1.13).event);
+            .duration(3000) //here
+            .call(zoom.translate([180,240]).scale(1).event);
         }
       })
     svg.call(zoom);
@@ -286,7 +292,7 @@ var displaySites = function(data) {
             .style('left', (d3.event.pageX + 20) + 'px')
             .style('top', (d3.event.pageY - 80) + 'px')
             .style('display', 'block')
-            .style('opacity', 0.8)
+            .style('opacity', '1')
         });
         //Add Event Listeners | mouseout
       sites.on('mouseout', function(d) { 
@@ -321,7 +327,7 @@ svg2.append("g")
     .attr("x", '320px')
     .attr("dy", "40px")
     .style("text-anchor", "end")
-    .text("Days after first recovered case")
+    .text("Days after first confirmed case")
     .attr("font-weight", 'bold');
 
 svg2.append("g")
@@ -453,8 +459,7 @@ var myslider = d3.slider()
 
 var container = d3.select('#container');
 var content = d3.select('#content');
-WIDTH = window.innerWidth;
-HEIGHT = window.innerHeight;
+
 var SCROLL_LENGTH = content.node().getBoundingClientRect().height - HEIGHT;
 var scrollTop = 0;
 var newScrollTop = 0;
@@ -494,8 +499,8 @@ var render = function() {
         //     translate = [width / 2 - scale * X, height / 2 - scale * Y];
 
         svg.transition()
-            .duration(3000)
-            .call(zoom.translate([0,0]).scale(1.13).event);
+            .duration(3000)//here
+            .call(zoom.translate([180,240]).scale(1).event);
       }
       myslider.value(val);
       var newData = _(site_data).filter( function(site) {
