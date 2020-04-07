@@ -159,7 +159,7 @@ function ready(error, data){
             X = (bounds[0][0] + bounds[1][0]) / 2,
             Y = (bounds[0][1] + bounds[1][1]) / 2,
             scale = Math.max(1, Math.min(8, 0.6 / Math.max(dx / width, dy / height))),
-            translate = [width / 2 - scale * X + 240, height / 2 - scale * Y-40];
+            translate = [width / 2 - scale * X + 160, height / 2 - scale * Y-20];
 
         svg.transition()
             .duration(3000)
@@ -389,6 +389,7 @@ var myslider = d3.slider()
   .axis(true).min(minDate).max(maxDate).step(1)
   .on("slide", function(evt, value) {
     // console.log('y:'+timeConverter(value));
+    $('#event-content').html('');
     document.getElementById('curDate').textContent = moment('1/22/20', "M/D/YY").add(Math.floor(value),'days').format('MMM Do, YYYY');
     var newData = _(site_data).filter( function(site) {
       // console.log(site_data);
@@ -435,7 +436,7 @@ var render = function() {
       scrollTop = newScrollTop;
       var val = time(scrollTop);
       document.getElementById('curDate').textContent = moment('1/22/20', "M/D/YY").add(Math.floor(val),'days').format('MMM Do, YYYY');
-      if(val>=30 && val < 63){
+      if(val>=30 && val < 64){
         if  (curCountry != 'Italy')
         document.getElementById('Italy').dispatchEvent(new MouseEvent("click"));
       } else if (val < 30){
