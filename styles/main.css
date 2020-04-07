@@ -265,9 +265,9 @@ aside{
   shape-rendering: crispEdges;
 }
 
-.x.axis path {
+/* .x.axis path {
   display: none;
-}
+} */
 
 /* .line {
   fill: none;
