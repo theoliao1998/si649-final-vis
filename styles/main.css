@@ -19,6 +19,7 @@ h4,p{
   line-height: 150%;
   font-weight: normal;
   margin: 0;
+  margin-top: .5em;
 }
 
 h1{font-size:2.5em;}
@@ -200,12 +201,8 @@ aside{
   box-shadow: 0 0 1em 0 rgba(67, 71, 83, 0.12);
   
 }
-/*#chart,#event{
-  left: 4vw;
-  width: 26vw;
-  position: fixed;
-  
-}*/
+#info{display: none;}
+
 #chart{
   display: none;
 }
