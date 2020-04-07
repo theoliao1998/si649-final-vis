@@ -205,7 +205,7 @@ function ready(error, data){
             dy = bounds[1][1] - bounds[0][1],
             X = (bounds[0][0] + bounds[1][0]) / 2,
             Y = (bounds[0][1] + bounds[1][1]) / 2,
-            scale = Math.max(1, Math.min(8, 0.6 / Math.max(dx / width, dy / height))),
+            scale = Math.max(1, Math.min(8, 0.8 / Math.max(dx / width, dy / height))),
             translate = [width / 2 - scale * X + 120, height / 2 - scale * Y+20];
 
         svg.transition()
@@ -327,7 +327,7 @@ svg2.append("g")
     .attr("x", '320px')
     .attr("dy", "40px")
     .style("text-anchor", "end")
-    .text("Days after first confirmed case")
+    .text("Days after first recover case")
     .attr("font-weight", 'bold');
 
 svg2.append("g")
