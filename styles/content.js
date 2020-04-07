@@ -386,6 +386,7 @@ var myslider = d3.slider()
   .axis(true).min(minDate).max(maxDate).step(1)
   .on("slide", function(evt, value) {
     // console.log('y:'+timeConverter(value));
+    document.getElementById('curDate').textContent = moment('1/22/20', "M/D/YY").add(Math.floor(value),'days').format('MMM Do, YYYY');
     var newData = _(site_data).filter( function(site) {
       // console.log(site_data);
       return site.date == Math.floor(value);
@@ -430,6 +431,7 @@ var render = function() {
     if (scrollTop !== newScrollTop) {
       scrollTop = newScrollTop;
       var val = time(scrollTop);
+      document.getElementById('curDate').textContent = moment('1/22/20', "M/D/YY").add(Math.floor(val),'days').format('MMM Do, YYYY');
       if(val>=30 && val < 63){
         if  (curCountry != 'Italy')
         document.getElementById('Italy').dispatchEvent(new MouseEvent("click"));

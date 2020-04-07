@@ -154,7 +154,7 @@ return function module() {
               .ticks(Math.round(sliderLength / 100))
               .tickFormat(function(d){
                 var date = new Date('2020-01-22');
-                date.setDate(date.getDate() + d);
+                date.setDate(date.getDate() + d + 1);
                 return date.toLocaleDateString('en-GB', {
                   day : 'numeric',
                   month : 'short',
