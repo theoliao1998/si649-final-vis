@@ -94,7 +94,7 @@ var yAxis = d3.svg.axis()
 var line = d3.svg.line()
     .interpolate("basis")
     .x(function(d) { return x(moment(d.Date,'M/D/YY').diff(moment(begin[curCountry],'M/D/YY'),'days')); })
-    .y(function(d) { return y(d[curCountry] != 'inf' ? +d[curCountry] : 0);});
+    .y(function(d) { return y( +d[curCountry] );});
 
 var svg2 = d3.select("#chart").append("svg")
     // .attr("width", width2 + margin2.left + margin2.right)
@@ -179,8 +179,8 @@ function ready(error, data){
   d3.csv("./data/covid_19_clean_complete.csv")
     .row(function(d) {
       return {
-        "Province/State":d["Province/State"],
-        "Country/Region":d["Country/Region"],
+        "Province/State":d["Country/Region"]!='Taiwan*'?d["Province/State"]:'Taiwan',
+        "Country/Region":d["Country/Region"]!='Taiwan*'?d["Country/Region"]:'China (Taiwan)',
         lat: parseFloat(d.Lat),
         lng: parseFloat(d.Long),
         date: moment(d.Date,"MM/DD/YYYY").diff(moment('1/22/20',"MM/DD/YYYY"),'days'),
@@ -225,10 +225,17 @@ var displaySites = function(data) {
       .attr("cy", function(d) {
         return projection([d.lng, d.lat])[1];
       })
+      // .attr('v',function(d){
+      //   return d["Country/Region"];
+      // })
       .attr('fill', function(d){
         var value = d.recovered > 0 ? (d.deaths)/(d.recovered) : 
                     d.deaths > 0 ? Number.POSITIVE_INFINITY : 0; 
         return color(value)
+      })
+      .on('click', function(d) {
+        let cid = d["Country/Region"]!='China (Taiwan)'?d["Country/Region"].split(' ').join('_'):'Taiwan';
+        document.getElementById(cid).dispatchEvent(new MouseEvent("click")); 
       })
       .transition().duration(10)
       .attr("r", function(d) {
@@ -256,7 +263,6 @@ var displaySites = function(data) {
           d3.select('#tooltip')
             .style('display', 'none');
         });
-      
 
  sites.exit()
     .attr('fill', function(d){
