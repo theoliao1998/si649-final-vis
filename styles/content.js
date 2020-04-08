@@ -31,7 +31,7 @@ var begin = {'Afghanistan': '3/22/20', 'Albania': '3/21/20', 'Algeria': '3/12/20
 var end = {'Afghanistan': '4/3/20', 'Albania': '4/3/20', 'Algeria': '4/3/20', 'Andorra': '4/3/20', 'Angola': '4/3/20', 'Argentina': '4/3/20', 'Armenia': '4/3/20', 'Australia': '4/3/20', 'Austria': '4/3/20', 'Azerbaijan': '4/3/20', 'Bahamas': '4/3/20', 'Bahrain': '4/3/20', 'Bangladesh': '4/3/20', 'Belarus': '4/3/20', 'Belgium': '4/3/20', 'Bolivia': '4/3/20', 'Bosnia and Herzegovina': '4/3/20', 'Brazil': '4/3/20', 'Brunei': '4/3/20', 'Bulgaria': '4/3/20', 'Burkina Faso': '4/3/20', 'Cameroon': '4/3/20', 'Chile': '4/3/20', 'China': '4/3/20', 'Colombia': '4/3/20', 'Congo (Brazzaville)': '4/3/20', 'Congo (Kinshasa)': '4/3/20', 'Costa Rica': '4/3/20', "Cote d'Ivoire": '4/3/20', 'Croatia': '4/3/20', 'Cuba': '4/3/20', 'Cyprus': '4/3/20', 'Czechia': '4/3/20', 'Denmark': '4/3/20', 'Diamond Princess': '4/3/20', 'Dominican Republic': '4/3/20', 'Ecuador': '4/3/20', 'Egypt': '4/3/20', 'Estonia': '4/3/20', 'Finland': '4/3/20', 'France': '4/3/20', 'Gabon': '4/3/20', 'Gambia': '4/3/20', 'Germany': '4/3/20', 'Ghana': '4/3/20', 'Greece': '4/3/20', 'Guatemala': '4/3/20', 'Honduras': '4/3/20', 'Hungary': '4/3/20', 'Iceland': '4/3/20', 'India': '4/3/20', 'Indonesia': '4/3/20', 'Iran': '4/3/20', 'Iraq': '4/3/20', 'Ireland': '4/3/20', 'Israel': '4/3/20', 'Italy': '4/3/20', 'Jamaica': '4/3/20', 'Japan': '4/3/20', 'Jordan': '4/3/20', 'Kazakhstan': '4/3/20', 'Kenya': '4/3/20', 'Kosovo': '4/3/20', 'Kyrgyzstan': '4/3/20', 'Latvia': '4/3/20', 'Lebanon': '4/3/20', 'Lithuania': '4/3/20', 'Luxembourg': '4/3/20', 'Malaysia': '4/3/20', 'Mauritania': '4/3/20', 'Mexico': '4/3/20', 'Moldova': '4/3/20', 'Monaco': '4/3/20', 'Montenegro': '4/3/20', 'Morocco': '4/3/20', 'Netherlands': '4/3/20', 'New Zealand': '4/3/20', 'Nigeria': '4/3/20', 'North Macedonia': '4/3/20', 'Norway': '4/3/20', 'Oman': '4/3/20', 'Pakistan': '4/3/20', 'Panama': '4/3/20', 'Paraguay': '4/3/20', 'Peru': '4/3/20', 'Philippines': '4/3/20', 'Poland': '4/3/20', 'Portugal': '4/3/20', 'Qatar': '4/3/20', 'Romania': '4/3/20', 'Russia': '4/3/20', 'San Marino': '4/3/20', 'Saudi Arabia': '4/3/20', 'Senegal': '4/3/20', 'Serbia': '3/25/20', 'Singapore': '4/3/20', 'Slovakia': '4/3/20', 'Slovenia': '4/3/20', 'South Africa': '4/3/20', 'South Korea': '4/3/20', 'Spain': '4/3/20', 'Sri Lanka': '4/3/20', 'Sudan': '4/3/20', 'Sweden': '4/3/20', 'Switzerland': '4/3/20', 'Taiwan*': '4/3/20', 'Tanzania': '4/3/20', 'Thailand': '4/3/20', 'Togo': '4/3/20', 'Trinidad and Tobago': '4/3/20', 'Tunisia': '4/3/20', 'Turkey': '4/3/20', 'US': '4/3/20', 'Ukraine': '4/3/20', 'United Arab Emirates': '4/3/20', 'United Kingdom': '4/3/20', 'Uruguay': '4/3/20', 'Uzbekistan': '4/3/20', 'Venezuela': '4/3/20', 'West Bank and Gaza': '4/3/20', 'Zambia': '4/3/20'};
 
 var cname = {'United States':'US', 'Bolivia, Plurinational State of':'Bolivia', 'Iran, Islamic Republic of':'Iran',
-"Korea, Democratic People's Republic of":'North_Korea',"Korea, Republic of" : 'South_Korea'}
+"Korea, Democratic People's Republic of":'North Korea',"Korea, Republic of" : 'South Korea'}
 
 var curCountry = 'China';
 var singleSelect = true;
@@ -94,7 +94,7 @@ var yAxis = d3.svg.axis()
 var line = d3.svg.line()
     .interpolate("basis")
     .x(function(d) { return x(moment(d.Date,'M/D/YY').diff(moment(begin[curCountry],'M/D/YY'),'days')); })
-    .y(function(d) { return y( +d[curCountry] );});
+    .y(function(d) { return y( +d[curCountry]);});
 
 var svg2 = d3.select("#chart").append("svg")
     // .attr("width", width2 + margin2.left + margin2.right)
@@ -143,7 +143,7 @@ function ready(error, data){
       .attr('d', path)
       .attr("id", function(d) { 
         // console.log(d);
-        return (d["properties"]["name"] in cname) ? cname[d["properties"]["name"]] : d["properties"]["name"].split(' ').join('_'); })
+        return (d["properties"]["name"] in cname) ? cname[d["properties"]["name"]] : d["properties"]["name"]; })
       .on('click', function(d){
         if(d3.select(this).classed('selected')==false){
           if(curCountry!='China' && curCountry!='Italy'){
