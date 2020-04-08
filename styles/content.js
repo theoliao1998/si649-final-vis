@@ -143,7 +143,7 @@ function ready(error, data){
       .attr('d', path)
       .attr("id", function(d) { 
         // console.log(d);
-        return (d["properties"]["name"] in cname) ? cname[d["properties"]["name"]] : d["properties"]["name"]; })
+        return (d["properties"]["name"] in cname) ? cname[d["properties"]["name"]] : d["properties"]["name"].split(' ').join('_'); })
       .on('click', function(d){
         if(d3.select(this).classed('selected')==false){
           if(curCountry!='China' && curCountry!='Italy'){
