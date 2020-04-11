@@ -146,10 +146,13 @@ function ready(error, data){
         return (d["properties"]["name"] in cname) ? cname[d["properties"]["name"]] : d["properties"]["name"]; })
       .on('click', function(d){
         if(d3.select(this).classed('selected')==false){
+          svg2.selectAll(".line").style('stroke','gray');
+          svg2.selectAll(".line").style('opacity','0.1');
           if(curCountry!='China' && curCountry!='Italy'){
             svg2.selectAll(".c_"+curCountry.split(' ').join('_')).remove();
           }
         curCountry = this.id;
+
         d3.select('.selected').classed('selected',false);
         d3.select(this).classed('selected',true); //if directly change 'fill', it will be overwritten by css
         
