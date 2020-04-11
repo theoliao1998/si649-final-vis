@@ -268,7 +268,7 @@ var displaySites = function(data) {
 
  sites.exit()
     .attr('fill', function(d){
-        var value = d.recovered > 0 ? (d.deaths)/(d.recovered) : 0; 
+        var value = d.number > 0 ? (d.deaths)/(d.number) : 0; 
         return color(value)
       })
     .transition().duration(10)
