@@ -65,7 +65,7 @@ var svg = d3.select("#map").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height);
 
-var color = d3.scale.linear().domain([0,1.5]).range(['green','red']);
+var color = d3.scale.linear().domain([0,0.1]).range(['#fdcf9b','#bf130d']);
 
 
 var margin2 = {top: 50, right: 160, bottom: 80, left: 50},
@@ -229,8 +229,7 @@ var displaySites = function(data) {
       //   return d["Country/Region"];
       // })
       .attr('fill', function(d){
-        var value = d.recovered > 0 ? (d.deaths)/(d.recovered) : 
-                    d.deaths > 0 ? Number.POSITIVE_INFINITY : 0; 
+        var value = d.number > 0 ? (d.deaths)/(d.number) : 0; 
         return color(value)
       })
       .on('click', function(d) {
@@ -240,7 +239,7 @@ var displaySites = function(data) {
       .transition().duration(10)
       .attr("r", function(d) {
         // console.log(d.number);
-        return Math.sqrt(d.number) / 10;
+        return Math.sqrt(d.number) / 15;
       });
       
     sites.on('mouseover', function(d) {
@@ -271,7 +270,7 @@ var displaySites = function(data) {
       })
     .transition().duration(10)
     .attr("r", function(d) {
-        return Math.sqrt(d.number) / 10;
+        return Math.sqrt(d.number) / 15;
       })
       .remove();
 };
@@ -331,7 +330,7 @@ var drawline = function(data, country) {
       .attr("class", "c_"+curCountry.split(' ').join('_')).append("path")
       .datum(data)
       .attr("class", "line")
-      .style("stroke", function(d) { return color2(curCountry); })
+      .style("stroke", 'red' )
       .attr('fill','none')
       // .transition()
       //   .ease("linear")
@@ -346,7 +345,7 @@ var drawline = function(data, country) {
   //       .ease("linear")
   //       .duration(5)
     .attr("d", function(d) { return line(d); })
-    .style("stroke", function(d) { return color2(curCountry); })
+    .style("stroke", 'red ')
       .remove();
   
   t = c.selectAll('text').data(data);
