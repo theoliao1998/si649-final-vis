@@ -6,13 +6,13 @@ var scales = {
 };
 
 var fullWidth = 600;
-var fullHeight = 400;
+var fullHeight = 200;
 var margin = { top: 20, bottom: 20, left: 30, right: 20 };
 var width = fullWidth - margin.left - margin.right;
 var height = fullHeight - margin.top - margin.bottom;
 
 // add the legend now
-var legendFullHeight = 50;
+var legendFullHeight = 65;
 var legendFullWidth = fullWidth;
 
 var legendMargin = { top: 20, bottom: 20, left: 5, right: 20 };
@@ -72,13 +72,21 @@ function updateColourScale(scale) {
             .attr('stop-opacity', 1);
     });
 
-    legendSvg.append('rect')
+    var rect = legendSvg.append('rect')
         .attr('x1', 0)
         .attr('y1', 0)
         .attr('width', legendWidth)
         .attr('height', legendHeight)
         .style('fill', 'url(#gradient)');
 
+    legendSvg.append("text")
+        .attr("x", '88px')
+        .attr("dy", "-2px")
+        .style("text-anchor", "end")
+        .text("Death Rate")
+        .attr("font-weight", 'bold')
+        .attr('fill','black');
+    
     // create a scale and axis for the legend
     var legendScale = d3.scale.linear()
         .domain([0,0.1])
