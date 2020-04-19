@@ -353,7 +353,7 @@ svg2.append("g")
     .attr("y", 6)
     .attr("dy", "-40px")
     .style("text-anchor", "end")
-    .text("Deaths / Recovered")
+    .text("Recorded Deaths Per Recorded Recovery")
     .attr("font-weight", 'bold');
 
 var drawline = function(data, country) {
