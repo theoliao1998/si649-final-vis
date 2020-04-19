@@ -105,7 +105,7 @@ function d3_rebind(target, source, method) {
 WIDTH = window.innerWidth;
 HEIGHT = window.innerHeight;
 var margin = {top: 0, right: 0, bottom: 0, left: 0},
-    width=WIDTH;
+    width=Math.max(WIDTH,HEIGHT*1.8);
     height=WIDTH/1.8;
     // width = 1600 - margin.left - margin.right;
     // height = 750- margin.top - margin.bottom;
@@ -113,7 +113,8 @@ var margin = {top: 0, right: 0, bottom: 0, left: 0},
 
 var svg = d3.select("#map").append("svg")
     .attr("width", width + margin.left + margin.right)
-    .attr("height", height);
+    .attr("height", height)
+
 
 var color = d3.scale.linear().domain([0,0.1]).range(['#fdcf9b','#bf130d']);
 
@@ -162,7 +163,7 @@ svg.append('rect')
 
 var g = svg.append("g").attr("width", width + margin.left + margin.right)
     .attr("height", height)//here
-    .attr("translate", "0 0");
+    .attr("transform", "translate(180,180)");
 
 d3.queue()
   .defer(d3.json,"world.topojson")
@@ -211,8 +212,8 @@ function ready(error, data){
             dy = bounds[1][1] - bounds[0][1],
             X = (bounds[0][0] + bounds[1][0]) / 2,
             Y = (bounds[0][1] + bounds[1][1]) / 2,
-            scale = Math.max(1, Math.min(8, 0.6 / Math.max(dx / width, dy / height))),
-            translate = [width / 2 - scale * X + 160, height / 2 - scale * Y-20];
+            scale = Math.max(1, Math.min(8, 1.3 / Math.max(dx / width, dy / height))),
+            translate = [width / 2 - scale * X + 600, height / 2 - scale * Y+200];
 
         svg.transition()
             .duration(3000)

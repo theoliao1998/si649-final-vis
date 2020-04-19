@@ -185,8 +185,10 @@ svg{
 }
 
 #map{
+  width: 100%;
   position: absolute;
 }
+
 aside{
   width: 30vw;
   position: fixed;
@@ -323,7 +325,7 @@ aside{
 #legend-svg{
   position: fixed;
   background: transparent;
-  left:58%;
+  right:10vw;
   display: none;
   z-index: 1000;
 }
