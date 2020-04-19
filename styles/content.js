@@ -512,6 +512,7 @@ var render = function() {
           $('#drag-text').css('display','none');
           $('#drag-img').css({'display':'none'});
         } else if(news_id != -1){
+          var r=Math.floor(Math.random() * Math.floor(10))/10+1;//random number between 1-2
           var item=document.getElementById('content').children[news_id];
           $('#drag-text').html(item.innerHTML);
           $('#drag-text').css({'display':'block','opacity':'1'});
@@ -519,17 +520,21 @@ var render = function() {
             $('#drag-img img').attr('src',item.dataset.imgSrc);
             $('#drag-img').css({'display':'block','opacity':'1'});
           } else {
-            $('#drag-img img').attr('src','');
             $('#drag-img').css({'display':'none'});
+            $('#drag-img img').attr('src','');
           }
         } else {
           $('#drag-text').css('opacity','0');
           $('#drag-img').css({'display':'none'});
         }
       }
+      else{
+        $('#drag-text').css('display','none');
+        $('#drag-img').css({'display':'none'});
+      }
       
 
-      if(val>=30 && val < 64){
+      if(val>=30 && val < 68){
         if  (curCountry != 'Italy')
         document.getElementById('Italy').dispatchEvent(new MouseEvent("click"));
       } else if (val < 30){
