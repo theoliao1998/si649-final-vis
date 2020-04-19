@@ -494,6 +494,7 @@ var time = d3.scale.linear()
 
 var render = function() {
     if (scrollTop !== newScrollTop) {
+      $('#legend-svg').css('display','block');
       scrollTop = newScrollTop;
       var val = time(scrollTop);
       var curMoment=moment('1/22/20', "M/D/YY").add(Math.floor(val),'days');
