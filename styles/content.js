@@ -540,7 +540,7 @@ var render = function() {
       }
       
 
-      if(val>=30 && val < 78){
+      if(val>=30 && val < 68){
         if  (curCountry != 'Italy')
         document.getElementById('Italy').dispatchEvent(new MouseEvent("click"));
       } else if (val < 30){
