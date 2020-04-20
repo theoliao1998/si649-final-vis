@@ -210,7 +210,7 @@ function ready(error, data){
         var bounds = path.bounds(d),
             dx = bounds[1][0] - bounds[0][0],
             dy = bounds[1][1] - bounds[0][1],
-            X = (bounds[0][0] + bounds[1][0]) / 2,
+            X = (bounds[0][0] + bounds[1][0]) / 2 + (curCountry=='US'?-460:0),
             Y = (bounds[0][1] + bounds[1][1]) / 2,
             scale = Math.max(1, Math.min(8, 1.5 / Math.max(dx / width, dy / height))),
             translate = [width / 2 - scale * X + 600, height / 2 - scale * Y+200];

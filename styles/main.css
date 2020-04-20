@@ -288,10 +288,10 @@ aside{
   margin:0 1em; 
 }
 #annotation p:first-child{
-  color:red;
+  color:blue;
 }
 #annotation p:last-child{
-  color:blue;
+  color:red;
 }
 
 #event{ 
