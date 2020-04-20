@@ -29,12 +29,19 @@ h3{
   font-size: 1.5em;
   text-transform: capitalize;
 }
-
+text{
+  fill:#353535;
+  font:300 12px/150%'Noto Serif',serif;
+}
 .note{
   font-size: .8em;
   font-weight: normal;
 }
 em{font-style: italic;}
+mark{
+  font-weight: bold;
+  background-color:#FFF49E; 
+}
 
 nav{width:1200px;margin:auto;}
 nav a{display:inline-block;color:#fff;text-decoration:none;padding:.25em;margin:.25em 1em .25em 0;border-bottom:2px solid transparent;-webkit-transition:border-color .4s;}
@@ -93,7 +100,7 @@ rect.selected{fill:#fff}
 .filters label{display:inline-block;width:60px}
 .filters select{display:inline-block;position:relative;width:120px;bottom:2px;margin-bottom:4px}
 .axis,.axis path,.axis line{fill:none;stroke:#262626;shape-rendering:crispEdges}
-.axis text{fill:#555;stroke:none;font-family:sans-serif;font-weight:normal;font-size:7pt;shape-rendering:crispEdges}
+.axis text{fill:#555;stroke:none;font-weight:normal;shape-rendering:crispEdges}
 .piechart{stroke:#222;}
 .piechart path:hover{cursor:pointer}
 .subdued{opacity:.5}
@@ -244,6 +251,10 @@ aside{
 #drag-img img{
   width: 100%;
 }
+#drag-img a{
+  color: #ccc;
+  display: none;
+}
 
 #info{display: none;}
 
@@ -260,6 +271,29 @@ aside{
 	width: 100%;
   height: 360px;
 }
+
+#annotation{
+  display: flex;
+  position: absolute;
+  left: 220px;
+  top: 290px;
+  width: 100%;
+  
+  transform:rotate(-90deg);
+}
+#annotation p{
+  font-weight: bold;
+  font-size:.8em;
+  opacity: 0.5;
+  margin:0 1em; 
+}
+#annotation p:first-child{
+  color:red;
+}
+#annotation p:last-child{
+  color:blue;
+}
+
 #event{ 
   max-height: 20vw;
 }

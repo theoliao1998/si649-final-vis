@@ -212,7 +212,7 @@ function ready(error, data){
             dy = bounds[1][1] - bounds[0][1],
             X = (bounds[0][0] + bounds[1][0]) / 2,
             Y = (bounds[0][1] + bounds[1][1]) / 2,
-            scale = Math.max(1, Math.min(8, 1.3 / Math.max(dx / width, dy / height))),
+            scale = Math.max(1, Math.min(8, 1.5 / Math.max(dx / width, dy / height))),
             translate = [width / 2 - scale * X + 600, height / 2 - scale * Y+200];
 
         svg.transition()
@@ -519,10 +519,15 @@ var render = function() {
           $('#drag-text').css({'display':'block','opacity':'1'});
           if(item.dataset.imgSrc){
             $('#drag-img img').attr('src',item.dataset.imgSrc);
+            if(item.dataset.imgUrl){ 
+              $('#drag-img a').attr('href',item.dataset.imgUrl);
+              $('#drag-img a').css('display','inline-block');
+            }
             $('#drag-img').css({'display':'block','opacity':'1'});
           } else {
             $('#drag-img').css({'display':'none'});
             $('#drag-img img').attr('src','');
+            $('#drag-img a').css('display','none');
           }
         } else {
           $('#drag-text').css('opacity','0');
