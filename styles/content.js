@@ -6,7 +6,8 @@ function check_if_in_view() {
 	  var window_bottom_position = (window_top_position + window_height);
 	  var $html;
 	  if(!started){
-	  	$('#chart').css('display','block');
+      $('#chart').css('display','block');
+	  	$('#explanation').css('display','block');
 	  	$('#info').css('display','block');
       $('#event').css('display','none');
 	  }
@@ -120,7 +121,7 @@ var color = d3.scale.linear().domain([0,0.1]).range(['#fdcf9b','#bf130d']);
 
 var margin2 = {top: 50, right: 160, bottom: 80, left: 50},
     width2 = 600 - margin2.left - margin2.right,
-    height2 = 400 - margin2.top - margin2.bottom;
+    height2 = 360 - margin2.top - margin2.bottom;
 
 
 var parseTime = d3.time.format("%m/%d/%Y").parse;
@@ -148,7 +149,7 @@ var line = d3.svg.line()
 
 var svg2 = d3.select("#chart").append("svg")
     // .attr("width", width2 + margin2.left + margin2.right)
-    // .attr("height", height2 + margin2.top + margin2.bottom)
+    // .attr("height", +200+'px')
     .style("background-color", 'transparent')
   .append("g")
     .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
@@ -341,7 +342,7 @@ svg2.append("g")
     .attr("x", '320px')
     .attr("dy", "40px")
     .style("text-anchor", "end")
-    .text("Days after first recover case")
+    .text("Days after first 3 recoveries")
     .attr("font-weight", 'bold');
 
 svg2.append("g")

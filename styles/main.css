@@ -250,6 +250,11 @@ aside{
 #chart{
   display: none;
 }
+
+#explanation{
+  display: none;
+}
+
 #chart svg,
 #chart svg g{
 	width: 100%;
@@ -330,4 +335,12 @@ aside{
   right:1vw;
   display: none;
   z-index: 1000;
+}
+
+#exp{
+  width: 100%;
+}
+
+#chart > svg {
+  height: 330px;
 }
